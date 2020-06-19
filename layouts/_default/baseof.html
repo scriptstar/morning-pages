@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{.Site.LanguageCode}}">
+
+<head>
+  {{- partial "head/base.html" . -}}
+</head>
+
+<body>
+  {{- partial "structured-data/base.html" . -}}
+  <article class="posts">
+    <div class="row">
+      <div class="col-xs-12">
+        <header>
+          {{- partial "header/skiptocontent.html" . -}}
+          {{- partial "header/base.html" . -}}
+        </header>
+        <main id="main">
+          {{- block "main" . }}{{- end }}
+        </main>
+        <footer>
+          {{- partial "footer/base.html" . -}}
+        </footer>
+      </div>
+    </div>
+  </article>
+  {{ partial "miscellaneous/scripts.html" . }}
+</body>
+
+</html>

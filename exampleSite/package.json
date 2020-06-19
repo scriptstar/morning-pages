@@ -1,0 +1,22 @@
+{
+  "name": "morning-pages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scriptstar/five.git"
+  },
+  "author": "Narendra Mandadapu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scriptstar/morning-pages/issues"
+  },
+  "homepage": "https://github.com/scriptstar/morning-pages#readme"
+}

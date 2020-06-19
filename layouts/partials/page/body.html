@@ -1,0 +1,10 @@
+<div class="post-content markdown-body">
+  {{ .Site.Params.postHeaderContent | safeHTML }}
+  {{ .Content }}
+</div>
+<div class="row">
+  <div class="col-xs-12 post-content markdown-body">
+    {{ partial "post/series-widget.html" . }}
+    {{ .Site.Params.postFooterContent | safeHTML }}
+  </div>
+</div>

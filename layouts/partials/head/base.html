@@ -1,0 +1,21 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+<title>{{ .Title }}</title>
+<link rel="manifest" href="/manifest.json">
+{{- partial "head/language-metas.html" . -}}
+
+<meta name="description" content="{{if .IsHome}}{{ .Site.Params.Description }}{{else}}{{.Summary | default .Description}}{{end}}" />
+
+<link rel="canonical" href="{{ .Permalink }}" >
+<link rel="sitemap" href="{{ "sitemap.xml" | absURL }}" type="application/xml" />
+
+{{- partial "head/og-metas.html" . -}}
+
+{{- partial "head/twitter-cards-metas.html" . -}}
+
+{{- partial "head/pwa-metas.html" . -}}
+
+{{- partial "head/styles.html" . -}}
+
+{{ .Site.Params.extraHead | safeHTML }}

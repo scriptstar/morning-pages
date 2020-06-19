@@ -1,0 +1,12 @@
+{{ $curLanguageName := .Site.Language.LanguageName }}
+<div class="signatures site-title">
+    <a href="{{ .Site.LanguagePrefix }}/">{{ or .Site.Params.headTitle .Site.Author.name }}</a>
+  </div>
+    <p class="tagline">{{ .Site.Params.tagline }}</p>
+<div class="site-header">
+  {{ range .Site.Params.headerPage }}
+  <div class="site-header-item">
+    <a href="/{{ .link }}/">{{ .name }}</a>
+  </div>
+  {{ end }}
+</div>

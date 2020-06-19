@@ -1,0 +1,28 @@
+<div id="posts-list">
+  {{ range (where site.RegularPages "Type" "in" site.Params.mainSections).GroupByDate "2006" -}}
+  <section>
+    <h1 class="site-date-catalog">{{ .Key }}</h1>
+    {{ range .Pages }}
+    <div class="row posts-line">
+      <div class="posts-date col-xs-2">
+        <time datetime="{{ .Page.PublishDate.Format "2006-01-02T15:04:05" | safeHTMLAttr }}">{{ .Date.Format "Jan 02"}}</time>
+      </div>
+      <div class="posts-title col-xs-10">
+        <div class="row">
+          <div class="col-xs-6 col-sm-8">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </div>
+          <div class="col-xs-6 col-sm-4 posts-categories">
+            {{ range .Params.series }}
+            <div class="posts-category">
+              <a href="/series/{{ lower . | urlize}}/"><strong>{{ . }}</strong></a>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </section>
+  {{ end }}
+</div>

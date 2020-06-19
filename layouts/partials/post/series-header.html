@@ -1,0 +1,4 @@
+{{if .Params.series}}
+  {{ $name := index .Params.series 0 }}
+  <p class="series_top_page">This post is part of the <a href="{{.Site.BaseURL}}series/{{$name | urlize}}">{{$name}}</a> series.</p>
+{{end}}

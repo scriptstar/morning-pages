@@ -1,0 +1,50 @@
+{{ $amazonLink := .Params.amzonOneLink }}
+{{ $bookImage := .Params.bookImage}}
+
+<!-- set bookAPI 👇 in the config.toml -->
+{{ $urlPre := .Site.Params.bookAPI }}
+<!-- set isbn 👇 in the front matter -->
+{{ $isbn := .Params.isbn }}
+
+{{ if and ($isbn) ($urlPre) }}
+  {{ $urlQuery := "?isbn="}}
+  {{ $bookJSON := getJSON $urlPre $urlQuery $isbn }}
+  {{ range $bookJSON.items }}
+    {{ $book := . }}
+    {{ $httpsThumbnail := replace $book.volumeInfo.imageLinks.thumbnail "http" "https" }}
+    <div class="productWithNoBorder">
+      <div class="product__image">
+        <a href="{{ $amazonLink }}" style="color: #0366d6;" rel="nofollow noopener noreferrer" target="_blank">
+          {{ with $bookImage }}
+            <img src="{{ $bookImage | absURL }}" alt="{{ $book.volumeInfo.title }}" width="250" />
+          {{ else }}
+            <img src="{{ $httpsThumbnail | absURL }}" alt="{{ $book.volumeInfo.title }}" width="250" />
+          {{ end }}
+        </a>
+      </div>
+      <div class="product__content">
+        <div class="product__title">
+          <a href="{{ $amazonLink }}" rel="nofollow noopener noreferrer" target="_blank">
+            {{ $book.volumeInfo.title }}: {{ $book.volumeInfo.subtitle }}
+          </a>
+        </div>
+        {{ range $authors :=  $book.volumeInfo.authors }}
+          <p>Author(s): {{$authors}}</p>
+        {{end}}
+        <div class="product__description">
+          Short Blurb:
+          {{ $book.volumeInfo.description | truncate 100 }}
+            <a href="{{ $amazonLink }}" rel="nofollow noopener noreferrer" target="_blank">
+              Read more
+            </a>
+        </div>
+        <div class="product__cta btn-main"
+          type="button"
+          value="Buy from Amazon"
+          onclick="window.open('{{ $amazonLink }}', 'rel=nofollow noopener noreferrer')">
+          Buy from Amazon
+        </div>
+      </div>
+    </div>
+  {{end}}
+{{ end }}

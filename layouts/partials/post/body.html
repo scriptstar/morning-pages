@@ -1,0 +1,9 @@
+<div class="post-content markdown-body">
+  {{ partial "post/series-header.html" . }}
+  {{ .Site.Params.postHeaderContent | safeHTML }}
+  {{ .Content }}
+  {{ partial "book/bookAPI.html" . }}
+  {{ partial "post/series.html" . }}
+  {{ .Site.Params.postFooterContent | safeHTML }}
+  {{ partial "post/amazon-disclaimer.html" . }}
+</div>

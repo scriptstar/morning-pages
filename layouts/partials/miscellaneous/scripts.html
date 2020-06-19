@@ -1,0 +1,91 @@
+<script>
+  var links = document.querySelectorAll( '.post-content a' );
+  for (var i = 0, length = links.length; i < length; i++) {
+    if (links[i].hostname != window.location.hostname) {
+      links[i].target = '_blank';
+      links[i].rel = 'nofollow noopener noreferrer'
+    }
+  }
+</script>
+
+<!-- Google Analytics -->
+{{ template "_internal/google_analytics_async.html" . }}
+
+<!-- loading google fonts asynchrnously -->
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: ['Arvo|Permanent+Marker|Bree+Serif&display=swap'] }
+  };
+  (function () {
+    var wf = document.createElement('script');
+    wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
+
+  <!-- serviceWorker registration -->
+  <script>
+    if('serviceWorker' in navigator) {
+
+        /**
+         * Define if <link rel='next|prev|prefetch'> should
+         * be preloaded when accessing this page
+         */
+        const PREFETCH = true;
+
+        /**
+         * Define which link-rel's should be preloaded if enabled.
+         */
+        const PREFETCH_LINK_RELS = ['index','next', 'prev', 'prefetch'];
+
+        /**
+         * prefetchCache
+         */
+        function prefetchCache() {
+            if(navigator.serviceWorker.controller) {
+
+                let links = document.querySelectorAll(
+                    PREFETCH_LINK_RELS.map((rel) => {
+                        return 'link[rel='+rel+']';
+                    }).join(',')
+                );
+
+                if(links.length > 0) {
+                    Array.from(links)
+                        .map((link) => {
+                            let href = link.getAttribute('href');
+                            navigator.serviceWorker.controller.postMessage({
+                                action : 'cache',
+                                url : href,
+                            });
+                        });
+                }
+
+
+            }
+        }
+
+        /**
+         * Register Service Worker
+         */
+        navigator.serviceWorker
+            .register('/sw.js', { scope: '/' })
+            .then(() => {
+                console.log('Service Worker Registered');
+            });
+
+        /**
+         * Wait if ServiceWorker is ready
+         */
+        navigator.serviceWorker
+            .ready
+            .then(() => {
+                if(PREFETCH) {
+                    prefetchCache();
+                }
+            });
+
+    }
+</script>
